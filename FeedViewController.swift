@@ -104,6 +104,14 @@ extension FeedViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     // MARK: UIImagePickerControllerDelegate
     
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        
+        // take the original UIImage (not cropped one…) from the Dictionary
+        let image = info[UIImagePickerControllerOriginalImage] as UIImage
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     // MARK: UINavigationControllerDelegate
 }
 
