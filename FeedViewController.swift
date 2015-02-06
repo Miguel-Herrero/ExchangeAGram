@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 class FeedViewController: UIViewController {
 
@@ -23,6 +24,25 @@ class FeedViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func snapBarButtomItemTapped(sender: UIBarButtonItem) {
+        
+        // Is the Camera available?
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+            var cameraController = UIImagePickerController()
+            
+            // We'll be the delegates for the ImagePickerController
+            cameraController.delegate = self
+            cameraController.sourceType = UIImagePickerControllerSourceType.Camera
+            
+            //Specifing a type of media we'll be collecting (images)
+            let mediaTypes: [AnyObject] = [kUTTypeImage]
+            cameraController.mediaTypes = mediaTypes
+            cameraController.allowsEditing = false //Dont allow editing photos inside Camera app
+            
+            // Present the instance of the CameraController on the screen
+            self.presentViewController(cameraController, animated: true, completion: nil)
+        }
+    }
 
     /*
     // MARK: - Navigation
@@ -36,9 +56,11 @@ class FeedViewController: UIViewController {
 
 }
 
-// MARK: - UICollectionViewDataSource
+// MARK: - UICollectionView
 
-extension FeedViewController: UICollectionViewDataSource {
+extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    // MARK: UICollectionViewDataSource
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
@@ -52,11 +74,16 @@ extension FeedViewController: UICollectionViewDataSource {
         return UICollectionViewCell()
     }
     
+    // MARK: UICollectionViewDelegate
+    
 }
 
-// MARK: - UICollectionViewDelegate
+// MARK: - UIImagePickerController
 
-extension FeedViewController: UICollectionViewDelegate {
+extension FeedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    // MARK: UIImagePickerControllerDelegate
+    
+    // MARK: UINavigationControllerDelegate
 }
 
