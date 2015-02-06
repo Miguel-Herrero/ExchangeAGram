@@ -35,3 +35,28 @@ class FeedViewController: UIViewController {
     */
 
 }
+
+// MARK: - UICollectionViewDataSource
+
+extension FeedViewController: UICollectionViewDataSource {
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+    
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension FeedViewController: UICollectionViewDelegate {
+    
+}
+
