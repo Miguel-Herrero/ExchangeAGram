@@ -26,7 +26,7 @@ class FeedViewController: UIViewController {
     
     @IBAction func snapBarButtomItemTapped(sender: UIBarButtonItem) {
         
-        // Is the Camera available?
+        // Is the Camera available? Else pick PhotoLibrary
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
             var cameraController = UIImagePickerController()
             
@@ -34,13 +34,33 @@ class FeedViewController: UIViewController {
             cameraController.delegate = self
             cameraController.sourceType = UIImagePickerControllerSourceType.Camera
             
-            //Specifing a type of media we'll be collecting (images)
+            // Specifing a type of media we'll be collecting (images)
             let mediaTypes: [AnyObject] = [kUTTypeImage]
             cameraController.mediaTypes = mediaTypes
-            cameraController.allowsEditing = false //Dont allow editing photos inside Camera app
+            cameraController.allowsEditing = false // Don't allow editing photos inside Camera app
             
             // Present the instance of the CameraController on the screen
             self.presentViewController(cameraController, animated: true, completion: nil)
+
+        } else if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+            
+            var photoLibraryController = UIImagePickerController()
+            
+            photoLibraryController.delegate = self
+            photoLibraryController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            
+            let mediaTypes: [AnyObject] = [kUTTypeImage]
+            photoLibraryController.mediaTypes = mediaTypes
+            photoLibraryController.allowsEditing = false
+            
+            self.presentViewController(photoLibraryController, animated: true, completion: nil)
+
+        } else {
+            
+            // Let's manage errors by presenting an Alert view
+            var alertController = UIAlertController(title: "Alert", message: "Your device does not support Camera or Photo Library", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alertController, animated: true, completion: nil)
         }
     }
 
