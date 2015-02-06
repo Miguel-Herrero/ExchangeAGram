@@ -114,6 +114,11 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     // MARK: UICollectionViewDelegate
     
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+
+        let thisitem = feedArray[indexPath.row] as FeedItem
+    }
+    
 }
 
 // MARK: - UIImagePickerController
