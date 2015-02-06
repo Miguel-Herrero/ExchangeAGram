@@ -116,7 +116,14 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 
-        let thisitem = feedArray[indexPath.row] as FeedItem
+        let thisItem = feedArray[indexPath.row] as FeedItem
+        
+        var filterVC = FilterViewController()
+        filterVC.thisFeedItem = thisItem
+        
+        // Present it on the screen
+        self.navigationController?.pushViewController(filterVC, animated: false)
+        
     }
     
 }
