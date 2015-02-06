@@ -15,6 +15,8 @@ class FilterViewController: UIViewController {
     var collectionView: UICollectionView!
     
     let kIntensity = 0.7
+    
+    var context: CIContext = CIContext(options: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +55,7 @@ class FilterViewController: UIViewController {
     }
     */
     
-    // Helper function
+    // MARK: - Helper functions
     
     func photoFilters () -> [CIFilter] {
         
@@ -85,6 +87,22 @@ class FilterViewController: UIViewController {
         vignette.setValue(kIntensity * 30, forKey: kCIInputRadiusKey)
         
         return [blur, instant, noir, transfer, unsharpen, monochrome, colorControls, sepia, colorClamp, composite, vignette]
+    }
+    
+    func filteredImageFromImage (imageData: NSData, filter: CIFilter) -> UIImage {
+
+        let unfilteredImage = CIImage(data: imageData)
+        filter.setValue(unfilteredImage, forKey: kCIInputImageKey)
+        
+        let filteredImage: CIImage = filter.outputImage
+        
+        let extent = filteredImage.extent()
+        
+        let cgImage: CGImageRef = context.createCGImage(filteredImage, fromRect: extent)
+        
+        let finalImage = UIImage(CGImage: cgImage)
+        
+        return finalImage
     }
 
 }
