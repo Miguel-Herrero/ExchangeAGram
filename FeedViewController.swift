@@ -8,6 +8,7 @@
 
 import UIKit
 import MobileCoreServices
+import CoreData
 
 class FeedViewController: UIViewController {
 
@@ -108,6 +109,21 @@ extension FeedViewController: UIImagePickerControllerDelegate, UINavigationContr
         
         // take the original UIImage (not cropped one…) from the Dictionary
         let image = info[UIImagePickerControllerOriginalImage] as UIImage
+        
+        // Converto to JPEG without compression
+        let imageData = UIImageJPEGRepresentation(image, 1.0)
+        
+        // Let's get the Context and get the entity from there
+        let manageObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+        let entityDescription = NSEntityDescription.entityForName("FeedItem", inManagedObjectContext: manageObjectContext!) //Un-wrap it because we knoe that it exists
+        
+        // Let's create our item
+        let feedItem = FeedItem(entity: entityDescription!, insertIntoManagedObjectContext: manageObjectContext)
+        feedItem.image = imageData
+        feedItem.caption = "test caption"
+        
+        // Save our feedItem
+        (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
