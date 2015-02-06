@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4940FE9D1A84ED0600CFB205 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4940FE9C1A84ED0600CFB205 /* FeedItem.swift */; };
 		49BEABAD1A84DB0800F80D5A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BEABAC1A84DB0800F80D5A /* AppDelegate.swift */; };
 		49BEABB01A84DB0800F80D5A /* ExchangeAGram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 49BEABAE1A84DB0800F80D5A /* ExchangeAGram.xcdatamodeld */; };
 		49BEABB51A84DB0800F80D5A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49BEABB31A84DB0800F80D5A /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4940FE9C1A84ED0600CFB205 /* FeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
 		49BEABA71A84DB0800F80D5A /* ExchangeAGram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExchangeAGram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49BEABAB1A84DB0800F80D5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49BEABAC1A84DB0800F80D5A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				49BEABB61A84DB0800F80D5A /* Images.xcassets */,
 				49BEABB81A84DB0800F80D5A /* LaunchScreen.xib */,
 				49BEABAE1A84DB0800F80D5A /* ExchangeAGram.xcdatamodeld */,
+				4940FE9C1A84ED0600CFB205 /* FeedItem.swift */,
 				49BEABAA1A84DB0800F80D5A /* Supporting Files */,
 			);
 			path = ExchangeAGram;
@@ -221,6 +224,7 @@
 				49BEABAD1A84DB0800F80D5A /* AppDelegate.swift in Sources */,
 				49BEABD21A84DE8400F80D5A /* FeedCell.swift in Sources */,
 				49BEABD01A84DC8200F80D5A /* FeedViewController.swift in Sources */,
+				4940FE9D1A84ED0600CFB205 /* FeedItem.swift in Sources */,
 				49BEABB01A84DB0800F80D5A /* ExchangeAGram.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,6 +419,7 @@
 				49BEABCB1A84DB0800F80D5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		49BEABCC1A84DB0800F80D5A /* Build configuration list for PBXNativeTarget "ExchangeAGramTests" */ = {
 			isa = XCConfigurationList;
@@ -423,6 +428,7 @@
 				49BEABCE1A84DB0800F80D5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
