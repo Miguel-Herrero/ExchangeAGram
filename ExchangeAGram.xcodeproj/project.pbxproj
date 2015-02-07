@@ -92,11 +92,11 @@
 				49BEABD11A84DE8400F80D5A /* FeedCell.swift */,
 				4946478C1A85458500A88BEB /* FilterViewController.swift */,
 				4946478E1A854D3A00A88BEB /* FilterCell.swift */,
+				4940FE9C1A84ED0600CFB205 /* FeedItem.swift */,
 				49BEABB31A84DB0800F80D5A /* Main.storyboard */,
 				49BEABB61A84DB0800F80D5A /* Images.xcassets */,
 				49BEABB81A84DB0800F80D5A /* LaunchScreen.xib */,
 				49BEABAE1A84DB0800F80D5A /* ExchangeAGram.xcdatamodeld */,
-				4940FE9C1A84ED0600CFB205 /* FeedItem.swift */,
 				49BEABAA1A84DB0800F80D5A /* Supporting Files */,
 			);
 			path = ExchangeAGram;

@@ -59,7 +59,7 @@ class FilterViewController: UIViewController {
     }
     */
     
-    // MARK: - Helper functions
+    // MARK: - Filter functions
     
     func photoFilters () -> [CIFilter] {
         
@@ -124,9 +124,22 @@ extension FilterViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell: FilterCell = collectionView.dequeueReusableCellWithReuseIdentifier("MyCell", forIndexPath: indexPath) as FilterCell
-        //cell.imageView.image = UIImage(named: "Placeholder")
         
-        cell.imageView.image = filteredImageFromImage(thisFeedItem.image, filter: filters[indexPath.row])
+        // Asign a default image ("Placeholder") to the cells before they're loaded with filtered images
+        cell.imageView.image = UIImage(named: "Placeholder")
+        
+        // Let's create the queue for future filters
+        let filterQueue: dispatch_queue_t = dispatch_queue_create("filter queue", nil)
+        
+        // Execute the filter code in Async way
+        dispatch_async(filterQueue, { () -> Void in
+            let filteredImage = self.filteredImageFromImage(self.thisFeedItem.image, filter: self.filters[indexPath.row])
+            
+            // Return the filtered images to the main thread; update the cells
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                cell.imageView.image = filteredImage
+            })
+        })
         
         return cell
     }
