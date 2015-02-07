@@ -139,8 +139,9 @@ extension FeedViewController: UIImagePickerControllerDelegate, UINavigationContr
         // take the original UIImage (not cropped one…) from the Dictionary
         let image = info[UIImagePickerControllerOriginalImage] as UIImage
         
-        // Converto to JPEG without compression
+        // Converto to JPEG versions of the image
         let imageData = UIImageJPEGRepresentation(image, 1.0)
+        let thumbNailData = UIImageJPEGRepresentation(image, 0.1)
         
         // Let's get the Context and get the entity from there
         let manageObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
@@ -150,6 +151,7 @@ extension FeedViewController: UIImagePickerControllerDelegate, UINavigationContr
         let feedItem = FeedItem(entity: entityDescription!, insertIntoManagedObjectContext: manageObjectContext)
         feedItem.image = imageData
         feedItem.caption = "test caption"
+        feedItem.thumbNail = thumbNailData
         
         // Save our feedItem
         (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
