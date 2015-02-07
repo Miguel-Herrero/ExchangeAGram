@@ -52,7 +52,16 @@ extension ProfileViewController: FBLoginViewDelegate {
     }
     
     func loginViewFetchedUserInfo(loginView: FBLoginView!, user: FBGraphUser!) {
+        println(user)
         
+        nameLabel.text = user.name
+        
+        let userImageUrl = "https://graph.facebook.com/\(user.objectID)/picture?type=small"
+        
+        let url = NSURL(string: userImageUrl)
+        let imageData = NSData(contentsOfURL: url!)
+        let image = UIImage(data: imageData!)
+        profileImageView.image = image
     }
     
     func loginViewShowingLoggedOutUser(loginView: FBLoginView!) {
@@ -61,6 +70,6 @@ extension ProfileViewController: FBLoginViewDelegate {
     }
     
     func loginView(loginView: FBLoginView!, handleError error: NSError!) {
-        
+        println("Error: \(error.localizedDescription)")
     }
 }
