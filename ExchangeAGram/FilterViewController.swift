@@ -132,6 +132,22 @@ class FilterViewController: UIViewController {
             UIImageJPEGRepresentation(image, 1.0).writeToFile(uniquePath, atomically: true)
         }
     }
+    
+    func getCachedImage (imageNumber: Int) -> UIImage {
+        let fileName = "\(imageNumber)" // Be careful as it might not be totally unique
+        let uniquePath = tmp.stringByAppendingPathComponent(fileName)
+        
+        var image: UIImage
+        
+        if NSFileManager.defaultManager().fileExistsAtPath(fileName) {
+            image = UIImage(contentsOfFile: uniquePath)!
+        } else {
+            self.cacheImage(imageNumber)
+            image = UIImage(contentsOfFile: uniquePath)!
+        }
+        
+        return image
+    }
 
 }
 
