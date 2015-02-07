@@ -19,6 +19,8 @@ class FilterViewController: UIViewController {
     var context: CIContext = CIContext(options: nil)
     
     var filters: [CIFilter] = []
+    
+    let placeHolderImage = UIImage(named: "Placeholder")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,21 +131,25 @@ extension FilterViewController: UICollectionViewDataSource, UICollectionViewDele
         
         let cell: FilterCell = collectionView.dequeueReusableCellWithReuseIdentifier("MyCell", forIndexPath: indexPath) as FilterCell
         
-        // Asign a default image ("Placeholder") to the cells before they're loaded with filtered images
-        cell.imageView.image = UIImage(named: "Placeholder")
-        
-        // Let's create the queue for future filters
-        let filterQueue: dispatch_queue_t = dispatch_queue_create("filter queue", nil)
-        
-        // Execute the filter code in Async way
-        dispatch_async(filterQueue, { () -> Void in
-            let filteredImage = self.filteredImageFromImage(self.thisFeedItem.thumbNail, filter: self.filters[indexPath.row])
+        if cell.imageView.image == nil {
+            // Asign a default image ("Placeholder") to the cells before they're loaded with filtered images
+            // Use a created image, instead a UIImage everytime cellForItemAtIndexPath is called
+            cell.imageView.image = placeHolderImage
             
-            // Return the filtered images to the main thread; update the cells
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                cell.imageView.image = filteredImage
+            // Let's create the queue for future filters
+            let filterQueue: dispatch_queue_t = dispatch_queue_create("filter queue", nil)
+            
+            // Execute the filter code in Async way
+            dispatch_async(filterQueue, { () -> Void in
+                let filteredImage = self.filteredImageFromImage(self.thisFeedItem.thumbNail, filter: self.filters[indexPath.row])
+                
+                // Return the filtered images to the main thread; update the cells
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    cell.imageView.image = filteredImage
+                })
             })
-        })
+        }
+        
         
         return cell
     }
