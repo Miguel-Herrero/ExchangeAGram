@@ -100,10 +100,14 @@ class FilterViewController: UIViewController {
         
         let filteredImage: CIImage = filter.outputImage
         
+        // Let's get the limits of the image
         let extent = filteredImage.extent()
         
+        // Convert it to CGImage with Rect limits
+        // (it's more optimized than passing the CIImage directly)
         let cgImage: CGImageRef = context.createCGImage(filteredImage, fromRect: extent)
         
+        // Convert back the CGImage to an UIImage
         let finalImage = UIImage(CGImage: cgImage)
         
         return finalImage!
