@@ -79,6 +79,10 @@ class FeedViewController: UIViewController {
         }
     }
 
+    @IBAction func profileTapped(sender: UIBarButtonItem) {
+        self.performSegueWithIdentifier("profileSegue", sender: nil)
+    }
+
     /*
     // MARK: - Navigation
 
