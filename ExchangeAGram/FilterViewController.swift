@@ -21,6 +21,8 @@ class FilterViewController: UIViewController {
     var filters: [CIFilter] = []
     
     let placeHolderImage = UIImage(named: "Placeholder")
+    
+    let tmp = NSTemporaryDirectory()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,6 +115,22 @@ class FilterViewController: UIViewController {
         let finalImage = UIImage(CGImage: cgImage)
         
         return finalImage!
+    }
+    
+    // MARK: - Caching functions
+    
+    func cacheImage (imageNumber: Int) {
+        let fileName = "\(imageNumber)" // Be careful as it might not be totally unique
+        let uniquePath = tmp.stringByAppendingPathComponent(fileName)
+        
+        if !NSFileManager.defaultManager().fileExistsAtPath(fileName) {
+            let data = self.thisFeedItem.thumbNail
+            let filter = self.filters[imageNumber]
+            let image = filteredImageFromImage(data, filter: filter)
+            
+            // Save the filtered image to cache
+            UIImageJPEGRepresentation(image, 1.0).writeToFile(uniquePath, atomically: true)
+        }
     }
 
 }
