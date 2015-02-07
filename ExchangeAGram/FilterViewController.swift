@@ -137,7 +137,7 @@ extension FilterViewController: UICollectionViewDataSource, UICollectionViewDele
         
         // Execute the filter code in Async way
         dispatch_async(filterQueue, { () -> Void in
-            let filteredImage = self.filteredImageFromImage(self.thisFeedItem.image, filter: self.filters[indexPath.row])
+            let filteredImage = self.filteredImageFromImage(self.thisFeedItem.thumbNail, filter: self.filters[indexPath.row])
             
             // Return the filtered images to the main thread; update the cells
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
