@@ -37,3 +37,25 @@ class ProfileViewController: UIViewController {
     */
 
 }
+
+// MARK: - FBLoginView
+
+extension ProfileViewController: FBLoginViewDelegate {
+    
+    // MARK: - FBLoginViewDelegate
+    func loginViewShowingLoggedInUser(loginView: FBLoginView!) {
+        
+    }
+    
+    func loginViewFetchedUserInfo(loginView: FBLoginView!, user: FBGraphUser!) {
+        
+    }
+    
+    func loginViewShowingLoggedOutUser(loginView: FBLoginView!) {
+        
+    }
+    
+    func loginView(loginView: FBLoginView!, handleError error: NSError!) {
+        
+    }
+}
