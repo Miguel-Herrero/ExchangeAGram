@@ -20,13 +20,18 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         let request = NSFetchRequest(entityName: "FeedItem")
         let appDelegate: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         let context: NSManagedObjectContext = appDelegate.managedObjectContext!
         
         // Make the request
         feedArray = context.executeFetchRequest(request, error: nil)!
+        
+        // Reload CollectionView
+        collectionView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
