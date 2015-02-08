@@ -209,6 +209,19 @@ class FilterViewController: UIViewController {
     
     func shareToFacebook (indexPath: NSIndexPath) {
         let filterImage = filteredImageFromImage(self.thisFeedItem.image, filter: self.filters[indexPath.row])
+        
+        // Let's create a NSArray because FB's library is in Obj-C
+        let photos: NSArray = [filterImage]
+        var params = FBPhotoParams()
+        params.photos = photos
+        
+        FBDialogs.presentShareDialogWithPhotoParams(params, clientState: nil) { (callback, result, error) -> Void in
+            if (result != nil) {
+                println(result)
+            } else {
+                println(error)
+            }
+        }
     }
 
 }
