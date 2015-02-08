@@ -204,6 +204,12 @@ class FilterViewController: UIViewController {
         
         return image
     }
+    
+    // MARK: -
+    
+    func shareToFacebook (indexPath: NSIndexPath) {
+        let filterImage = filteredImageFromImage(self.thisFeedItem.image, filter: self.filters[indexPath.row])
+    }
 
 }
 
