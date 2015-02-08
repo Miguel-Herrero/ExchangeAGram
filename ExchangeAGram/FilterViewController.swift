@@ -153,6 +153,9 @@ class FilterViewController: UIViewController {
         }
         
         let photoAction = UIAlertAction(title: "Post Photo to Facebook with caption", style: UIAlertActionStyle.Destructive) { (UIAlertAction) -> Void in
+            
+            self.shareToFacebook(indexPath)
+
             self.saveFilterToCoreData(indexPath)
         }
         
