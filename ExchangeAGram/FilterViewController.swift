@@ -117,12 +117,28 @@ class FilterViewController: UIViewController {
         return finalImage!
     }
     
+    func saveFilterToCoreData (indexPath: NSIndexPath) {
+        // Use the High resolution image
+        let filterImage = filteredImageFromImage(self.thisFeedItem.image, filter: self.filters[indexPath.row])
+        
+        let imageData = UIImageJPEGRepresentation(filterImage, 1.0)
+        self.thisFeedItem.image = imageData
+        
+        let thumbNailData = UIImageJPEGRepresentation(filterImage, 0.1)
+        self.thisFeedItem.thumbNail = thumbNailData
+        
+        // Persist these changes in our CoreData file system
+        (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
+        
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+    
     // MARK: - UIAlertController helper functions
     
-    func createUIAlertController () {
-        let alert = UIAlertController(title: "Photo Options", message: "Please choose an option", preferredStyle: UIAlertControllerStyle.Alert)
+    func createUIAlertController (indexPath: NSIndexPath) {
+        let alertController = UIAlertController(title: "Photo Options", message: "Please choose an option", preferredStyle: UIAlertControllerStyle.Alert)
         
-        alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+        alertController.addTextFieldWithConfigurationHandler { (textField) -> Void in
             textField.placeholder = "Add Caption!"
             textField.secureTextEntry = false
         }
@@ -130,31 +146,31 @@ class FilterViewController: UIViewController {
         var text: String
         
         //There can be more than one textfields (or none, that's why we unwrap it)
-        let textField = alert.textFields![0] as UITextField
+        let textField = alertController.textFields![0] as UITextField
         
         if textField.text != nil {
             text = textField.text
         }
         
         let photoAction = UIAlertAction(title: "Post Photo to Facebook with caption", style: UIAlertActionStyle.Destructive) { (UIAlertAction) -> Void in
-            
+            self.saveFilterToCoreData(indexPath)
         }
         
-        alert.addAction(photoAction)
+        alertController.addAction(photoAction)
         
         let saveFilterAction = UIAlertAction(title: "Save filter without posting on Facebook", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
-            
+            self.saveFilterToCoreData(indexPath)
         }
         
-        alert.addAction(saveFilterAction)
+        alertController.addAction(saveFilterAction)
         
         let cancelAction = UIAlertAction(title: "Select another filter", style: UIAlertActionStyle.Cancel) { (UIAlertAction) -> Void in
             
         }
         
-        alert.addAction(cancelAction)
+        alertController.addAction(cancelAction)
         
-        self.presentViewController(alert, animated: false, completion: nil)
+        self.presentViewController(alertController, animated: false, completion: nil)
     }
     
     // MARK: - Caching functions
@@ -227,20 +243,6 @@ extension FilterViewController: UICollectionViewDataSource, UICollectionViewDele
     // MARK: UICollectionViewDelegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
-        createUIAlertController()
-        // Use the High resolution image
-//        let filterImage = filteredImageFromImage(self.thisFeedItem.image, filter: self.filters[indexPath.row])
-//
-//        let imageData = UIImageJPEGRepresentation(filterImage, 1.0)
-//        self.thisFeedItem.image = imageData
-//
-//        let thumbNailData = UIImageJPEGRepresentation(filterImage, 0.1)
-//        self.thisFeedItem.thumbNail = thumbNailData
-//        
-//        // Persist these changes in our CoreData file system
-//        (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
-//        
-//        self.navigationController?.popToRootViewControllerAnimated(true)
+        createUIAlertController(indexPath)
     }
 }
