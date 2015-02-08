@@ -117,7 +117,7 @@ class FilterViewController: UIViewController {
         return finalImage!
     }
     
-    func saveFilterToCoreData (indexPath: NSIndexPath) {
+    func saveFilterToCoreData (indexPath: NSIndexPath, caption: String) {
         // Use the High resolution image
         let filterImage = filteredImageFromImage(self.thisFeedItem.image, filter: self.filters[indexPath.row])
         
@@ -126,6 +126,8 @@ class FilterViewController: UIViewController {
         
         let thumbNailData = UIImageJPEGRepresentation(filterImage, 0.1)
         self.thisFeedItem.thumbNail = thumbNailData
+        
+        self.thisFeedItem.caption = caption
         
         // Persist these changes in our CoreData file system
         (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
@@ -143,26 +145,24 @@ class FilterViewController: UIViewController {
             textField.secureTextEntry = false
         }
         
-        var text: String
         
         //There can be more than one textfields (or none, that's why we unwrap it)
         let textField = alertController.textFields![0] as UITextField
         
-        if textField.text != nil {
-            text = textField.text
-        }
-        
         let photoAction = UIAlertAction(title: "Post Photo to Facebook with caption", style: UIAlertActionStyle.Destructive) { (UIAlertAction) -> Void in
             
             self.shareToFacebook(indexPath)
+            
+            var text = textField.text
 
-            self.saveFilterToCoreData(indexPath)
+            self.saveFilterToCoreData(indexPath, caption: text)
         }
         
         alertController.addAction(photoAction)
         
         let saveFilterAction = UIAlertAction(title: "Save filter without posting on Facebook", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
-            self.saveFilterToCoreData(indexPath)
+            var text = textField.text
+            self.saveFilterToCoreData(indexPath, caption: text)
         }
         
         alertController.addAction(saveFilterAction)
