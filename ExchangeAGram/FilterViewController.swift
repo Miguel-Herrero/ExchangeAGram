@@ -117,6 +117,19 @@ class FilterViewController: UIViewController {
         return finalImage!
     }
     
+    // MARK: - UIAlertController helper functions
+    
+    func createUIAlertController () {
+        let alert = UIAlertController(title: "Photo Options", message: "Please choose an option", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            textField.placeholder = "Add Caption!"
+            textField.secureTextEntry = false
+        }
+        
+        self.presentViewController(alert, animated: false, completion: nil)
+    }
+    
     // MARK: - Caching functions
     
     func cacheImage (imageNumber: Int) {
@@ -187,18 +200,20 @@ extension FilterViewController: UICollectionViewDataSource, UICollectionViewDele
     // MARK: UICollectionViewDelegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        createUIAlertController()
         // Use the High resolution image
-        let filterImage = filteredImageFromImage(self.thisFeedItem.image, filter: self.filters[indexPath.row])
-
-        let imageData = UIImageJPEGRepresentation(filterImage, 1.0)
-        self.thisFeedItem.image = imageData
-
-        let thumbNailData = UIImageJPEGRepresentation(filterImage, 0.1)
-        self.thisFeedItem.thumbNail = thumbNailData
-        
-        // Persist these changes in our CoreData file system
-        (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
-        
-        self.navigationController?.popToRootViewControllerAnimated(true)
+//        let filterImage = filteredImageFromImage(self.thisFeedItem.image, filter: self.filters[indexPath.row])
+//
+//        let imageData = UIImageJPEGRepresentation(filterImage, 1.0)
+//        self.thisFeedItem.image = imageData
+//
+//        let thumbNailData = UIImageJPEGRepresentation(filterImage, 0.1)
+//        self.thisFeedItem.thumbNail = thumbNailData
+//        
+//        // Persist these changes in our CoreData file system
+//        (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
+//        
+//        self.navigationController?.popToRootViewControllerAnimated(true)
     }
 }
